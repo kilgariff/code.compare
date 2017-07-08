@@ -1,16 +1,658 @@
-<body style="background-color: black; color: white; text-align: center; font-face: courier;">
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
 
-    <div style="width: 600px; margin: 0 auto;">
-        <h1>code.compare()</h1>
+<style>
 
-        <p>Welcome to code.compare() - Dundee's weekly coding meet-up! Share & compare code with other developers of all backgrounds and skill levels, have a chat, and get some help with your project.</p>
+    body
+    {
+        --code-color: #AAAAAA;
+        --min-width: 650px;
+        --width: 75%;
+        background-color: #555555;
+        color: white;
+        text-align: center;
+        font-family: courier;
+    }
 
-        <img src="http://i1.kym-cdn.com/photos/images/newsfeed/001/112/710/e7b.gif" />
+    .main-body
+    {
+        background-color: black;
+        min-width: var(--min-width);
+        width: var(--width);
+        margin: 0 auto;
+        padding: 0 0;
+        box-shadow: 15px 15px 0px white;
+        text-align: left;
+    }
 
-        <p>All you need to bring is a laptop with your project set up and a good attitude.</p>
+    .background
+    {
+        text-align: left;
+        position: absolute;
+        z-index: -10;
+        left: 0;
+        width: 100%;
+        height: 2024px;
+        overflow: hidden;
+    }
 
-        <p>Snacks are provided, and you can pay what you want at the door.</p>
+    p
+    {
+        margin: 0 0;
+        padding: 15px 10px;
+    }
 
-        <p>code.compare() is an event run by <a href="https://dms.rocks/">Dundee MakerSpace</a>. Contact <a href="mailto:ross@dundeemakerspace.co.uk">ross@dundeemakerspace.co.uk</a> if you want to come along!</p>
+    a
+    {
+        background-color: white;
+        color: black;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    a:hover
+    {
+        background-color: magenta;
+        color: white;
+        text-decoration: underline;
+    }
+
+    img
+    {
+        border-style: dotted;
+    }
+
+    h1
+    {
+        background-color: white;
+        color: black;
+        margin-top: 0;
+        width: 100%;
+        min-width: var(--min-width);
+        font-size: 2.3em;
+    }
+
+    h2
+    {
+        text-align: left;
+    }
+
+    h3
+    {
+        background-color: magenta;
+        margin: 0;
+        padding: 3px 0px;
+        width: 100%;
+        min-width: var(--min-width);
+        font-size: 1.5em;
+    }
+
+    .footer
+    {
+        min-width: var(--min-width);
+        width: var(--width);
+        box-shadow: 15px 15px 0px #00FF00;
+        margin: 0 auto;
+        margin-top: 40px;
+    }
+
+    @keyframes frog-down
+    {
+        from {height: 120px;}
+        to {height: 393px;}
+    }
+
+    @keyframes frog-up
+    {
+        from {height: 393px;}
+        to {height: 120px;}
+    }
+
+    .frog-marquee
+    {
+        background-color: white;
+        min-width: var(--min-width);
+        width: var(--width);
+        height: 120px;
+        box-shadow: 15px 15px 0px black;
+        margin-bottom: 18px;
+        cursor: pointer;
+    }
+
+    .frog-marquee-down
+    {
+        height: 393px;
+        animation-name: frog-down;
+        animation-duration: 1s;
+    }
+
+    .frog-marquee-up
+    {
+        height: 120px;
+        animation-name: frog-up;
+        animation-duration: 1s;
+    }
+
+    .container
+    {
+        width: 100%;
+        padding: 5px 0 35px 0;
+        margin: 0 auto;
+    }
+
+    /* Code pretty printing */
+
+    .pln { color: var(--code-color); }  /* plain text */
+        
+    @media screen {
+    .str { color: var(--code-color); }  /* string content */
+    .kwd { color: var(--code-color); }  /* a keyword */
+    .com { color: var(--code-color); }  /* a comment */
+    .typ { color: var(--code-color); }  /* a type name */
+    .lit { color: var(--code-color); }  /* a literal value */
+    /* punctuation, lisp open bracket, lisp close bracket */
+    .pun, .opn, .clo { color: var(--code-color); }
+    .tag { color: var(--code-color); }  /* a markup tag name */
+    .atn { color: var(--code-color); }  /* a markup attribute name */
+    .atv { color: var(--code-color); }  /* a markup attribute value */
+    .dec, .var { color: var(--code-color); }  /* a declaration; a variable name */
+    .fun { color: var(--code-color); }  /* a function name */
+    }
+
+    /* Use higher contrast and text-weight for printable form. */
+    @media print, projection {
+    .str { color: var(--code-color); }
+    .kwd { color: var(--code-color);; font-weight: bold }
+    .com { color: var(--code-color);; font-style: italic }
+    .typ { color: var(--code-color);; font-weight: bold }
+    .lit { color: var(--code-color); }
+    .pun, .opn, .clo { color: var(--code-color); }
+    .tag { color: var(--code-color);; font-weight: bold }
+    .atn { color: var(--code-color); }
+    .atv { color: var(--code-color); }
+    }
+
+    /* Put a border around prettyprinted code snippets. */
+    pre.prettyprint { padding: 0; border: 0 solid var(--code-color); }
+
+    /* Specify class=linenums on a pre to get line numbering */
+    ol.linenums { margin-top: 0; margin-bottom: 0 } /* IE indents via margin-left */
+    li.L0,
+    li.L1,
+    li.L2,
+    li.L3,
+    li.L5,
+    li.L6,
+    li.L7,
+    li.L8 { list-style-type: none }
+    /* Alternate shading for lines */
+    li.L1,
+    li.L3,
+    li.L5,
+    li.L7,
+    li.L9 { background: var(--code-color); }
+
+</style>
+
+<script>
+    window.onload = function() {
+        const frog = document.getElementsByClassName('frog-marquee')[0];
+
+        frog.addEventListener('click', () => {
+
+            if(frog.classList.length < 2) {
+                frog.classList.add('frog-marquee-up');
+            }
+
+            frog.classList.toggle('frog-marquee-up');
+            frog.classList.toggle('frog-marquee-down');
+
+            console.log(frog.classList);
+        });
+    };
+</script>
+
+<body>
+
+    <marquee direction="up" scrollamount="20" class="background">
+    <pre class="prettyprint">
+#include <iostream>
+#include <cstdlib>
+#include <sstream>
+#include <oggvorbis/sndoggvorbis.h>
+using std::cout;
+using std::endl;
+
+#include "game_jam_game.hpp"
+#include "input.hpp"
+#include "render.hpp"
+#include "texture.hpp"
+#include "audio.hpp"
+
+GameJamGame::GameJamGame()
+: state (TitleScreen)
+, musicPlaying ()
+{
+    /**
+     * Init audio and start playing background music.
+     */
+
+    snd_stream_init();
+    sndoggvorbis_init();
+
+    /**
+     * Populate cache.
+     */
+
+    Reload();
+}
+
+StaticMesh GameJamGame::LoadStaticMesh(std::string const & sMeshName,
+                                       std::string const & sMeshFile,
+                                       std::string const & sTextureFile,
+                                       uint32_t textureWidth,
+                                       uint32_t textureHeight)
+{
+    cout << "Loading static mesh: " << sMeshName << " (" << sMeshFile << ", " << sTextureFile << ")..." << endl;
+
+    auto it = staticMeshes.find(sMeshName);
+
+    if(it != staticMeshes.end())
+    {
+        cout << sMeshName << " was cached" << endl;
+        return it->second;
+    }
+
+    cout << sMeshName << " was not cached - loading." << endl;
+
+    StaticMesh sm = StaticMesh::LoadFromFile(sMeshFile);
+    sm.SetTexture(LoadTexture(sTextureFile, textureWidth, textureHeight), textureWidth, textureHeight);
+    staticMeshes[sMeshName] = sm;
+    return sm;
+}
+
+SkeletalMesh GameJamGame::LoadSkeletalMesh(std::string const & sMeshName,
+                                           std::string const & sMeshFile,
+                                           std::string const & sSkeletonFile,
+                                           std::string const & sTextureFile,
+                                           uint32_t textureWidth,
+                                           uint32_t textureHeight)
+{
+    cout << "Loading skeletal mesh: " << sMeshName << " (" << sMeshFile << ", " << sSkeletonFile << ", " << sTextureFile << ")..." << endl;
+
+    auto it = skeletalMeshes.find(sMeshName);
+
+    if(it != skeletalMeshes.end())
+    {
+        cout << sMeshName << " was cached" << endl;
+        return it->second;
+    }
+
+    cout << sMeshName << " was not cached - loading." << endl;
+
+    SkeletalMesh sm = SkeletalMesh::LoadFromFile(sMeshFile, sSkeletonFile, sTextureFile, 512, 512);
+    skeletalMeshes[sMeshName] = sm;
+    return sm;
+}
+
+void * GameJamGame::LoadTexture(std::string const & sTextureFile,
+                                uint32_t width,
+                                uint32_t height)
+{
+    cout << "Loading texture: " << sTextureFile << "..." << endl;
+
+    auto it = textures.find(sTextureFile);
+
+    if(it != textures.end())
+    {
+        cout << sTextureFile << " was cached" << endl;
+        return it->second;
+    }
+
+    cout << sTextureFile << " was not cached - loading." << endl;
+
+    pvr_ptr_t tex;
+    load_texture(&tex, 512 * 512 * 2, sTextureFile.c_str());
+    textures[sTextureFile] = tex;
+
+    cout << sTextureFile << " loaded" << endl;
+    return static_cast<void *>(tex);
+}
+
+tSharedAnimation GameJamGame::LoadAnimation(std::string const & sAnimationName, std::string const & sAnimationFile)
+{
+    cout << "Loading animation: " << sAnimationName << endl;
+
+    auto it = animations.find(sAnimationName);
+
+    if(it != animations.end())
+    {
+        cout << sAnimationName << " was cached" << endl;
+        return it->second;
+    }
+
+    cout << sAnimationFile << " was not cached - loading." << endl;
+
+    tSharedAnimation animation = std::make_shared<Animation>();
+    animation->LoadFromFile(sAnimationFile);
+    animations[sAnimationName] = animation;
+    
+    cout << sAnimationFile << " loaded" << endl;
+    return animation;
+}
+
+void GameJamGame::Reload()
+{
+    titleScreen = LoadTexture("rd/title.png", 512, 512);
+
+    camera = Camera(Vector(0, 6, -5));
+
+    //skeleton = LoadSkeletalMesh("skeleton", "rd/test.ross_mesh", "rd/test.ross_skel", "rd/test.ross_anim", "rd/skeleton.png", 512, 512);
+
+    /**
+     * Populate dungeon with rooms:
+     */
+
+    dungeon.Reset();
+
+    for(size_t i = 1; i <= 4; ++i)
+    {
+        std::stringstream ss;
+        ss << "room" << i;
+
+        Room room;
+
+        Room::RoomData data;
+        data.id = i;
+        
+        switch(data.id)
+        {
+            case 1:
+                data.halfWidth = 3.5f;
+                data.halfHeight = 2.5f;
+
+                data.playerStarts[0] = Vector(0, 0, 0);
+                data.playerStarts[1] = Vector(0, 0, 2.3f);
+                break;
+
+            case 2:
+                data.halfWidth = 1.75f;
+                data.halfHeight = 5.35f;
+
+                data.playerStarts[0] = Vector(0, 0, -5.9f);
+                data.playerStarts[1] = Vector(0, 0, 5.75f);
+                break;
+
+            case 3:
+                data.halfWidth = 5.0f;
+                data.halfHeight = 2.75f;
+
+                data.playerStarts[0] = Vector(0, 0, -2.3f);
+                data.playerStarts[1] = Vector(0, 0, 2.3f);
+                break;
+
+            case 4:
+                data.halfWidth = 10.5f;
+                data.halfHeight = 11.5f;
+
+                data.playerStarts[0] = Vector(0, 0, -10.5f);
+                break;
+
+            default:
+                data.halfWidth = 5.0f;
+                data.halfHeight = 2.75f;
+
+                data.playerStarts[0] = Vector(0, 0, 0);
+                break;
+        }
+
+        /**
+        data.underdemonMesh = LoadStaticMesh("underdemon", "rd/goblin.ross_mesh", "rd/goblin.png", 512, 512);
+        data.skeletonMesh = LoadStaticMesh("skeleton", "rd/skeleton.ross_mesh", "rd/skeleton.png", 512, 512);
+        data.knightMesh = LoadStaticMesh("knight", "rd/knight.ross_mesh", "rd/knight.png", 512, 512);
+        **/
+
+        data.underdemonMesh = LoadSkeletalMesh("goblin", "rd/goblin.ross_mesh", "rd/ross.ross_skel", "rd/goblin.png", 512, 512);
+        data.skeletonMesh = LoadSkeletalMesh("skeleton", "rd/skeleton.ross_mesh", "rd/skeleton.ross_skel", "rd/skeleton.png", 512, 512);
+        data.knightMesh = LoadSkeletalMesh("knight", "rd/knight.ross_mesh", "rd/ross.ross_skel", "rd/knight.png", 512, 512);
+
+        data.rossMesh = LoadSkeletalMesh("ross", "rd/ross.ross_mesh", "rd/ross.ross_skel", "rd/ross.png", 512, 512);
+        data.allyMesh = LoadSkeletalMesh("ally", "rd/ally.ross_mesh", "rd/ross.ross_skel", "rd/ally.png", 512, 512);
+        data.doorMesh = LoadStaticMesh("door", "rd/door.ross_mesh", "rd/dungeon.png", 512, 512);
+        data.boxMesh = LoadStaticMesh("box", "rd/box.ross_mesh", "rd/box.png", 256, 256);
+        StaticMesh roomMesh = LoadStaticMesh(ss.str(), "rd/" + ss.str() + ".ross_mesh", "rd/dungeon.png", 512, 512);
+
+        data.playerIdle = LoadAnimation("player_idle", "rd/ross_idle.ross_anim");
+        data.playerWalk = LoadAnimation("player_walk", "rd/ross_walk.ross_anim");
+        data.playerRun = LoadAnimation("player_run", "rd/ross_run.ross_anim");
+        data.playerAttack = LoadAnimation("player_attack", "rd/ross_attack.ross_anim");
+
+        data.enemyWalk = data.playerWalk;
+
+        room.SetRoomData(data);
+        room.SetStaticMesh(roomMesh);
+        dungeon.AddRoom(i, room);
+    }
+
+    dungeon.SetCurrentRoom(1, 0, false);
+
+    cout << "Finished reloading - memory usage:" << endl;
+    malloc_stats();
+}
+
+GameJamGame::~GameJamGame()
+{
+    sndoggvorbis_stop();
+    sndoggvorbis_shutdown();
+    snd_stream_shutdown();
+}
+
+void GameJamGame::Process(float deltaTime, Input * pInput)
+{
+    /**
+     * Cap delta time at 1s.
+     */
+
+    if(deltaTime > 1)
+    {
+        deltaTime = 1;
+    }
+
+    cont_state_t * st = pInput->pFirstControllerState;
+
+    if(st != NULL)
+    {
+        static bool startPressed;
+
+        if(st->buttons & CONT_START)
+        {
+            if(startPressed == false)
+            {
+                startPressed = true;
+            }
+        }
+        else if(startPressed == true)
+        {
+            if(state == Gameplay)
+            {
+                state = TitleScreen;
+
+                if(musicPlaying == false)
+                {
+                    sndoggvorbis_start("/rd/bgmusic.ogg", 1 /* loop */);   
+                    musicPlaying = true;
+                }
+            }
+            else if(state == TitleScreen)
+            {
+                Reload();
+                state = Gameplay;
+            }
+
+            startPressed = false;
+        }
+
+        if(state == TitleScreen || state == Gameplay)
+        {
+            static bool yPressed;
+
+            if(st->buttons & CONT_Y)
+            {
+                if(yPressed == false)
+                {
+                    yPressed = true;
+                }
+            }
+            else if(yPressed == true)
+            {
+                if(musicPlaying == false)
+                {
+                    sndoggvorbis_start("/rd/bgmusic.ogg", 1 /* loop */);
+                    musicPlaying = true;
+                }
+                else
+                {
+                    sndoggvorbis_stop();
+                    musicPlaying = false;
+                }
+
+                yPressed = false;
+            }
+        }
+    }
+
+    if(state == Gameplay)
+    {
+        camera.Process(deltaTime, pInput);
+        dungeon.Process(deltaTime, pInput);
+
+        camera.SetTarget(dungeon.GetCameraFocalPoint());
+        camera.SetElevation(dungeon.GetCameraElevation());
+   }
+}
+
+void GameJamGame::Draw()
+{
+    if(state == TitleScreen)
+    {
+        static float const w = 640;
+        static float const h = 480;
+
+        static tQuads quads {
+
+            Quad(Vertex(0, 0, 1, 0, 0),
+                 Vertex(w, 0, 1, 1, 0),
+                 Vertex(0, h, 1, 0, 1),
+                 Vertex(w, h, 1, 1, 1))
+        };
+
+        render::begin_frame();
+        pvr_list_begin(PVR_LIST_OP_POLY);
+        render::draw_textured_quads(quads, titleScreen, 512, 512);
+        pvr_list_finish();
+        render::end_frame();
+    }
+    else if(state == Gameplay)
+    {
+        /**
+         * Apply the current view projection matrix.
+         */
+
+        Matrix const & vp = camera.GetViewProjection();
+        dungeon.SetViewProjection(vp);
+
+        /**
+         * Draw entities.
+         */
+
+        render::begin_frame();
+        pvr_list_begin(PVR_LIST_OP_POLY);
+
+        dungeon.Draw();
+
+        pvr_list_finish();
+        render::end_frame();
+    }
+}
+    </pre>
+    </marquee>
+
+    <h3>Dundee</h3>
+    <h1><a href="http://dundee.codes/" target="_blank">code.compare();</a></h1>
+
+    <div class="container">
+
+        <marquee class="frog-marquee">
+            <img src="http://i1.kym-cdn.com/photos/images/newsfeed/001/112/710/e7b.gif" />
+        </marquee>
+
+        <div class="main-body">
+
+            <h2>// What?</h2>
+
+            <p>Welcome to <a href="http://dundee.codes/" target="_blank">code.compare();</a> - Dundee's weekly coding meet-up! Share/compare code with developers of all backgrounds & skill levels, have a chat, and get some help with your coding projects.</p>
+
+            <h2>// Why?</h2>
+
+            <p>Coders are in a loop.</p>
+            
+            <p>We must keep learning new ways to make things happen, wrangling the ever-expanding deluge of modern technologies into order just long enough to create things of value. The world needs its frogs on unicycles after all!</p>
+             
+            <p>As it happens, this gets much easier when we pool our collective knowledge and lend a hand to our fellow devs.</p>
+
+            <h2>// When?</h2>
+
+            <p>
+            Okay, so technically we haven't started yet! But the plan is:</p>
+
+            <pre> 
+            - every second Wednesday
+            - from 6:30pm to 8:30pm
+            - starting from 19th June 2017
+            </pre>
+
+            <h2>// Where?</h2>
+
+            <pre>
+            <a href="https://dms.rocks/" target="_blank">Dundee MakerSpace</a>
+            Unit 5
+            The Vision Building
+            Dundee
+            DD2 4QB
+            UK
+            </pre>
+
+            <h2>// How?</h2>
+
+            <pre>
+
+            void comeAlong() {
+
+                coder.contact("<a href="mailto:ross@dundeemakerspace.co.uk">ross@dundeemakerspace.co.uk</a>");
+
+                coder.bring(laptop, project);
+
+                coder.chatWith(otherCoders);
+
+                coder.code.compareWith(otherCoders.code);
+
+                coder.eat(FREE_SNACKS);
+
+                if (coder.isFeeling(SUPPORTIVE | AMAZINGLY_TALENTED)) {
+                    coder.help(otherCoders);
+                }
+
+                coder.have(FUN);
+
+                if (coder.isFeeling(GENEROUS)) {
+                    coder.donateTo(CODE_COMPARE);
+                }
+            }
+
+            </pre>
+
+            <h3>Run by <a href="http://ross.codes/" target="_blank">ross.codes</a> and <a href="https://dms.rocks/" target="_blank">Dundee MakerSpace</a></h3>
+        </div>
+
     </div>
+
 </body>
