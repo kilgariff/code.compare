@@ -1,5 +1,3 @@
-<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
-
 <style>
 
     body
@@ -22,6 +20,18 @@
         padding: 0 0;
         box-shadow: 15px 15px 0px white;
         text-align: left;
+    }
+
+    .main-body pre
+    {
+        margin: 30px 40px;
+        font-size: 1em;
+        font-family: courier;
+        white-space: pre-wrap;       /* Since CSS 2.1 */
+        white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+        white-space: -pre-wrap;      /* Opera 4-6 */
+        white-space: -o-pre-wrap;    /* Opera 7 */
+        word-wrap: break-word;       /* Internet Explorer 5.5+ */
     }
 
     .background
@@ -56,11 +66,6 @@
         text-decoration: underline;
     }
 
-    img
-    {
-        border-style: dotted;
-    }
-
     h1
     {
         background-color: white;
@@ -74,6 +79,7 @@
     h2
     {
         text-align: left;
+        font-size: 1.5em;
     }
 
     h3
@@ -139,58 +145,6 @@
         margin: 0 auto;
     }
 
-    /* Code pretty printing */
-
-    .pln { color: var(--code-color); }  /* plain text */
-        
-    @media screen {
-    .str { color: var(--code-color); }  /* string content */
-    .kwd { color: var(--code-color); }  /* a keyword */
-    .com { color: var(--code-color); }  /* a comment */
-    .typ { color: var(--code-color); }  /* a type name */
-    .lit { color: var(--code-color); }  /* a literal value */
-    /* punctuation, lisp open bracket, lisp close bracket */
-    .pun, .opn, .clo { color: var(--code-color); }
-    .tag { color: var(--code-color); }  /* a markup tag name */
-    .atn { color: var(--code-color); }  /* a markup attribute name */
-    .atv { color: var(--code-color); }  /* a markup attribute value */
-    .dec, .var { color: var(--code-color); }  /* a declaration; a variable name */
-    .fun { color: var(--code-color); }  /* a function name */
-    }
-
-    /* Use higher contrast and text-weight for printable form. */
-    @media print, projection {
-    .str { color: var(--code-color); }
-    .kwd { color: var(--code-color);; font-weight: bold }
-    .com { color: var(--code-color);; font-style: italic }
-    .typ { color: var(--code-color);; font-weight: bold }
-    .lit { color: var(--code-color); }
-    .pun, .opn, .clo { color: var(--code-color); }
-    .tag { color: var(--code-color);; font-weight: bold }
-    .atn { color: var(--code-color); }
-    .atv { color: var(--code-color); }
-    }
-
-    /* Put a border around prettyprinted code snippets. */
-    pre.prettyprint { padding: 0; border: 0 solid var(--code-color); }
-
-    /* Specify class=linenums on a pre to get line numbering */
-    ol.linenums { margin-top: 0; margin-bottom: 0 } /* IE indents via margin-left */
-    li.L0,
-    li.L1,
-    li.L2,
-    li.L3,
-    li.L5,
-    li.L6,
-    li.L7,
-    li.L8 { list-style-type: none }
-    /* Alternate shading for lines */
-    li.L1,
-    li.L3,
-    li.L5,
-    li.L7,
-    li.L9 { background: var(--code-color); }
-
 </style>
 
 <script>
@@ -214,7 +168,7 @@
 <body>
 
     <marquee direction="up" scrollamount="20" class="background">
-    <pre class="prettyprint">
+    <pre>
 #include <iostream>
 #include <cstdlib>
 #include <sstream>
@@ -589,66 +543,68 @@ void GameJamGame::Draw()
 
             <h2>// What?</h2>
 
-            <p>Welcome to <a href="http://dundee.codes/" target="_blank">code.compare();</a> - Dundee's weekly coding meet-up! Share/compare code with developers of all backgrounds & skill levels, have a chat, and get some help with your coding projects.</p>
+<pre>
+Welcome to <a href="http://dundee.codes/" target="_blank">code.compare();</a> - Dundee's fortnightly coding meet-up! Share and compare code with developers of all backgrounds and skill levels, have a chat, and get some help with your coding projects.
+</pre>
 
             <h2>// Why?</h2>
 
-            <p>Coders are in a loop.</p>
-            
-            <p>We must keep learning new ways to make things happen, wrangling the ever-expanding deluge of modern technologies into order just long enough to create things of value. The world needs its frogs on unicycles after all!</p>
-             
-            <p>As it happens, this gets much easier when we pool our collective knowledge and lend a hand to our fellow devs.</p>
+<pre>
+Coders are in a loop.
+
+We are continually learning new things in order to stay on top of the rapidly changing tech landscape. The world needs its frogs on unicycles after all!
+
+As it happens, this gets much easier when we pool our abilities and lend a hand to our fellow devs.
+</pre>
 
             <h2>// When?</h2>
 
-            <p>
-            Okay, so technically we haven't started yet! But the plan is:</p>
+<pre>
+Okay, so technically we haven't started yet! But here's the plan:
 
-            <pre> 
-            - every second Wednesday
-            - from 6:30pm to 8:30pm
-            - starting from 19th June 2017
-            </pre>
+    -> Every fortnight
+    -> on the first and second Wednesday of each month
+    -> from 6:30pm to 8:30pm
+    -> starting from 19th June 2017!
+</pre>
 
             <h2>// Where?</h2>
 
-            <pre>
-            <a href="https://dms.rocks/" target="_blank">Dundee MakerSpace</a>
-            Unit 5
-            The Vision Building
-            Dundee
-            DD2 4QB
-            UK
-            </pre>
+<pre>
+<a href="https://dms.rocks/" target="_blank">Dundee MakerSpace</a>
+Unit 5
+The Vision Building
+Dundee
+DD2 4QB
+UK
+</pre>
 
             <h2>// How?</h2>
 
-            <pre>
+<pre>
+void comeAlong() {
 
-    void comeAlong() {
+    coder.contact("<a href="mailto:ross@dundeemakerspace.co.uk">ross@dundeemakerspace.co.uk</a>");
 
-        coder.contact("<a href="mailto:ross@dundeemakerspace.co.uk">ross@dundeemakerspace.co.uk</a>");
+    coder.bring(laptop, project);
 
-        coder.bring(laptop, project);
+    coder.chatWith(otherCoders);
 
-        coder.chatWith(otherCoders);
+    coder.compare(code).with(otherCoders.code);
 
-        coder.code.compareWith(otherCoders.code);
+    coder.eat(FREE_SNACKS);
 
-        coder.eat(FREE_SNACKS);
-
-        if (coder.isFeeling(SUPPORTIVE | AMAZINGLY_TALENTED)) {
-            coder.help(otherCoders);
-        }
-
-        coder.have(FUN);
-
-        if (coder.isFeeling(GENEROUS)) {
-            coder.donateTo(CODE_COMPARE);
-        }
+    if (coder.isFeeling(SUPPORTIVE | AMAZINGLY_TALENTED)) {
+        coder.help(otherCoders);
     }
 
-            </pre>
+    coder.have(FUN);
+
+    if (coder.isFeeling(GENEROUS)) {
+        coder.donateTo(CODE_COMPARE);
+    }
+}
+</pre>
 
             <h3>Run by <a href="http://ross.codes/" target="_blank">ross.codes</a> and <a href="https://dms.rocks/" target="_blank">Dundee MakerSpace</a></h3>
         </div>
