@@ -92,13 +92,9 @@
         font-size: 1.3em;
     }
 
-    .footer
+    .hit-counter
     {
-        min-width: var(--min-width);
-        width: var(--width);
-        box-shadow: 15px 15px 0px #00FF00;
-        margin: 0 auto;
-        margin-top: 40px;
+
     }
 
     @keyframes frog-down
@@ -149,7 +145,15 @@
 </style>
 
 <script>
+
+    let pageHits = 0;
+
     window.onload = function() {
+
+        /**
+         * Set up our good friend, the frog.
+         */
+
         const frog = document.getElementsByClassName('frog-marquee')[0];
 
         frog.addEventListener('click', () => {
@@ -162,6 +166,28 @@
             frog.classList.toggle('frog-marquee-down');
 
             console.log(frog.classList);
+        });
+
+        /**
+         * Hook up the hit counter.
+         */
+
+        window.setInterval(() => {
+            
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = () => {
+
+                if (this.readyState === 4 && this.status === 200) {
+
+                    let hitCounters = document.getElementsByClassName('hit-counter');
+
+                    for(let counter of hitCounters) {
+                        counter.innerHTML = 'HITS: ' + this.responseText;
+                    }
+                }
+            };
+
+            xhttp.open('GET', 'ross.codes:3321/get-hits');
         });
     };
 </script>
@@ -607,9 +633,8 @@ void comeAlong() {
 }
 </pre>
 
-            <h3>Run by <a href="http://ross.codes/" target="_blank">ross.codes</a> and <a href="https://dms.rocks/" target="_blank">Dundee MakerSpace</a></h3>
-        </div>
+<h3>Run by <a href="http://ross.codes/" target="_blank">ross.codes</a> and <a href="https://dms.rocks/" target="_blank">Dundee MakerSpace</a><div class="hitcounter"></div></h3>
 
-    </div>
-
+</div>
+</div>
 </body>
