@@ -239,11 +239,8 @@
 
                 if (this.readyState === 4 && this.status === 200) {
 
-                    let hitCounters = document.getElementsByClassName('banner');
-
-                    for(let counter of hitCounters) {
-                        counter.innerHTML = 'pageHits == ' + this.responseText;
-                    }
+                    let counter = document.getElementsByClassName('banner')[0];
+                    counter.innerHTML = 'pageHits == ' + this.responseText;
                 }
             };
 
